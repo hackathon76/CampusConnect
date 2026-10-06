@@ -1,0 +1,4461 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SmartCampus</title>
+
+    <style>
+        /* =========================================================
+           SMARTCAMPUS - COMPLETE FRONTEND
+           All CSS is inside this file.
+           ========================================================= */
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #0f172a;
+            --background: #f5f7fb;
+            --card: #ffffff;
+            --text: #172033;
+            --muted: #64748b;
+            --border: #e2e8f0;
+            --success: #16a34a;
+            --warning: #f59e0b;
+            --danger: #dc2626;
+            --purple: #7c3aed;
+            --teal: #0d9488;
+        }
+
+        body {
+            background: var(--background);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font: inherit;
+        }
+
+        button {
+            cursor: pointer;
+        }
+
+        /* =========================================================
+           AUTHENTICATION
+           ========================================================= */
+
+        #authScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background:
+                radial-gradient(circle at top left, #dbeafe, transparent 35%),
+                radial-gradient(circle at bottom right, #ede9fe, transparent 35%),
+                #f8fafc;
+        }
+
+        .auth-container {
+            width: 100%;
+            max-width: 1050px;
+            min-height: 650px;
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(15, 23, 42, 0.12);
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .auth-left {
+            background: linear-gradient(145deg, #1d4ed8, #2563eb, #4f46e5);
+            color: white;
+            padding: 55px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .brand-logo {
+            width: 62px;
+            height: 62px;
+            background: rgba(255,255,255,0.18);
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .auth-left h1 {
+            font-size: 42px;
+            margin-bottom: 16px;
+        }
+
+        .auth-left p {
+            color: #dbeafe;
+            line-height: 1.7;
+            font-size: 16px;
+        }
+
+        .feature-list {
+            margin-top: 35px;
+            list-style: none;
+        }
+
+        .feature-list li {
+            margin: 15px 0;
+            color: #eff6ff;
+        }
+
+        .feature-list li span {
+            display: inline-flex;
+            width: 28px;
+            height: 28px;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.16);
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .auth-right {
+            padding: 45px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .auth-right h2 {
+            font-size: 30px;
+            margin-bottom: 8px;
+        }
+
+        .auth-subtitle {
+            color: var(--muted);
+            margin-bottom: 28px;
+        }
+
+        .auth-tabs {
+            display: flex;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+
+        .auth-tab {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 9px;
+            background: transparent;
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .auth-tab.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        }
+
+        .role-switch {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .role-btn {
+            flex: 1;
+            padding: 11px;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            color: var(--muted);
+        }
+
+        .role-btn.active {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #eff6ff;
+            font-weight: 600;
+        }
+
+        .form-group {
+            margin-bottom: 17px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            border: 1px solid var(--border);
+            padding: 13px 14px;
+            border-radius: 10px;
+            outline: none;
+            background: white;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(37,99,235,0.1);
+        }
+
+        .primary-btn {
+            width: 100%;
+            border: none;
+            padding: 14px;
+            border-radius: 10px;
+            background: var(--primary);
+            color: white;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+
+        .primary-btn:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+
+        .secondary-btn {
+            border: 1px solid var(--border);
+            padding: 11px 16px;
+            border-radius: 9px;
+            background: white;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .auth-message {
+            margin-top: 15px;
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 14px;
+            display: none;
+        }
+
+        .auth-message.success {
+            display: block;
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .auth-message.error {
+            display: block;
+            background: #fee2e2;
+            color: #991b1b;
+        }
+
+        /* =========================================================
+           MAIN APPLICATION
+           ========================================================= */
+
+        #app {
+            display: none;
+            min-height: 100vh;
+        }
+
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* SIDEBAR */
+
+        .sidebar {
+            width: 245px;
+            background: var(--secondary);
+            color: white;
+            padding: 22px 14px;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            padding: 8px 12px 28px;
+            font-size: 20px;
+            font-weight: 800;
+        }
+
+        .sidebar-brand-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 11px;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+        }
+
+        .sidebar-menu li {
+            margin: 5px 0;
+        }
+
+        .sidebar-menu button {
+            width: 100%;
+            border: none;
+            background: transparent;
+            color: #94a3b8;
+            padding: 12px 14px;
+            border-radius: 10px;
+            text-align: left;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            transition: 0.2s;
+        }
+
+        .sidebar-menu button:hover {
+            background: #1e293b;
+            color: white;
+        }
+
+        .sidebar-menu button.active {
+            background: var(--primary);
+            color: white;
+        }
+
+        .menu-icon {
+            width: 21px;
+            text-align: center;
+        }
+
+        .sidebar-bottom {
+            position: absolute;
+            bottom: 20px;
+            left: 14px;
+            right: 14px;
+        }
+
+        .logout-btn {
+            width: 100%;
+            background: #1e293b;
+            border: none;
+            color: #cbd5e1;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .logout-btn:hover {
+            background: #334155;
+            color: white;
+        }
+
+        /* MAIN */
+
+        .main-content {
+            margin-left: 245px;
+            width: calc(100% - 245px);
+            min-height: 100vh;
+        }
+
+        .topbar {
+            height: 72px;
+            background: white;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 30px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        .page-title h2 {
+            font-size: 21px;
+        }
+
+        .page-title p {
+            font-size: 12px;
+            color: var(--muted);
+            margin-top: 3px;
+        }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .notification-btn {
+            border: none;
+            background: #f1f5f9;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+        }
+
+        .profile-mini {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .avatar {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .profile-mini span {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .page {
+            display: none;
+            padding: 30px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* =========================================================
+           COMMON COMPONENTS
+           ========================================================= */
+
+        .welcome-banner {
+            background: linear-gradient(135deg, #2563eb, #4f46e5);
+            color: white;
+            border-radius: 18px;
+            padding: 27px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .welcome-banner h1 {
+            font-size: 27px;
+            margin-bottom: 7px;
+        }
+
+        .welcome-banner p {
+            color: #dbeafe;
+        }
+
+        .welcome-icon {
+            font-size: 65px;
+            opacity: 0.18;
+        }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+        }
+
+        .grid-4 {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        .grid-3 {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        .grid-2 {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
+        .card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+        }
+
+        .blue-bg {
+            background: #dbeafe;
+        }
+
+        .green-bg {
+            background: #dcfce7;
+        }
+
+        .orange-bg {
+            background: #fef3c7;
+        }
+
+        .purple-bg {
+            background: #ede9fe;
+        }
+
+        .stat-card h3 {
+            font-size: 20px;
+            margin-bottom: 3px;
+        }
+
+        .stat-card p {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 27px 0 14px;
+        }
+
+        .section-header h3 {
+            font-size: 18px;
+        }
+
+        .view-all {
+            border: none;
+            background: transparent;
+            color: var(--primary);
+            font-size: 13px;
+            font-weight: 600;
+        }
+
+        /* =========================================================
+           DASHBOARD
+           ========================================================= */
+
+        .next-class {
+            border-left: 4px solid var(--primary);
+        }
+
+        .next-class-top {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 12px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 9px;
+            border-radius: 20px;
+            font-size: 11px;
+            font-weight: 700;
+        }
+
+        .badge-blue {
+            background: #dbeafe;
+            color: #1d4ed8;
+        }
+
+        .badge-green {
+            background: #dcfce7;
+            color: #15803d;
+        }
+
+        .badge-orange {
+            background: #fef3c7;
+            color: #b45309;
+        }
+
+        .class-title {
+            font-size: 21px;
+            margin-bottom: 7px;
+        }
+
+        .class-info {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        .quick-action {
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 12px;
+            padding: 17px;
+            text-align: left;
+            transition: 0.2s;
+        }
+
+        .quick-action:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .quick-action-icon {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .quick-action strong {
+            display: block;
+            font-size: 14px;
+        }
+
+        .quick-action small {
+            color: var(--muted);
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* =========================================================
+           TIMETABLE
+           ========================================================= */
+
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .schedule-item {
+            display: grid;
+            grid-template-columns: 90px 1fr 110px;
+            align-items: center;
+            padding: 14px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+        }
+
+        .schedule-time {
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 13px;
+        }
+
+        .schedule-subject {
+            font-weight: 700;
+        }
+
+        .schedule-room {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        /* =========================================================
+           CAMPUS MAP
+           ========================================================= */
+
+        .map-layout {
+            display: grid;
+            grid-template-columns: 1fr 330px;
+            gap: 18px;
+        }
+
+        .map-container {
+            height: 540px;
+            background:
+                linear-gradient(90deg, rgba(148,163,184,0.14) 1px, transparent 1px),
+                linear-gradient(rgba(148,163,184,0.14) 1px, transparent 1px),
+                #ecfdf5;
+            background-size: 35px 35px;
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .road {
+            position: absolute;
+            background: #cbd5e1;
+        }
+
+        .road.horizontal {
+            height: 30px;
+            left: 0;
+            right: 0;
+            top: 48%;
+        }
+
+        .road.vertical {
+            width: 30px;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+        }
+
+        .building {
+            position: absolute;
+            background: white;
+            border: 2px solid #94a3b8;
+            border-radius: 9px;
+            padding: 9px;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+            transition: 0.2s;
+        }
+
+        .building:hover {
+            transform: scale(1.05);
+            border-color: var(--primary);
+        }
+
+        .building.b1 {
+            left: 10%;
+            top: 12%;
+            width: 130px;
+        }
+
+        .building.b2 {
+            right: 10%;
+            top: 14%;
+            width: 125px;
+        }
+
+        .building.b3 {
+            left: 10%;
+            bottom: 14%;
+            width: 125px;
+        }
+
+        .building.b4 {
+            right: 10%;
+            bottom: 14%;
+            width: 125px;
+        }
+
+        .building.b5 {
+            left: 39%;
+            top: 7%;
+            width: 120px;
+        }
+
+        .map-pin {
+            position: absolute;
+            left: 46%;
+            top: 42%;
+            width: 34px;
+            height: 34px;
+            border-radius: 50% 50% 50% 0;
+            background: var(--danger);
+            transform: rotate(-45deg);
+            border: 3px solid white;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .map-pin::after {
+            content: "";
+            position: absolute;
+            width: 9px;
+            height: 9px;
+            background: white;
+            border-radius: 50%;
+            left: 10px;
+            top: 10px;
+        }
+
+        .location-list {
+            display: flex;
+            flex-direction: column;
+            gap: 9px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .location-item {
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 13px;
+            cursor: pointer;
+        }
+
+        .location-item:hover {
+            border-color: var(--primary);
+            background: #f8fafc;
+        }
+
+        .location-item strong {
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .location-item small {
+            color: var(--muted);
+        }
+
+        /* =========================================================
+           PEER GUIDANCE
+           ========================================================= */
+
+        .search-box {
+            position: relative;
+            margin-bottom: 18px;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 14px 15px 14px 42px;
+            border: 1px solid var(--border);
+            border-radius: 11px;
+            outline: none;
+        }
+
+        .search-symbol {
+            position: absolute;
+            left: 15px;
+            top: 13px;
+            color: var(--muted);
+        }
+
+        .peer-card {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .peer-avatar {
+            width: 54px;
+            height: 54px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: #e0e7ff;
+            color: #4338ca;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .peer-info {
+            flex: 1;
+        }
+
+        .peer-info h4 {
+            margin-bottom: 4px;
+        }
+
+        .peer-info p {
+            color: var(--muted);
+            font-size: 12px;
+            margin-bottom: 6px;
+        }
+
+        .tag {
+            display: inline-block;
+            background: #f1f5f9;
+            padding: 4px 7px;
+            border-radius: 6px;
+            font-size: 10px;
+            margin-right: 3px;
+        }
+
+        .connect-btn {
+            border: none;
+            background: var(--primary);
+            color: white;
+            padding: 9px 13px;
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+        .resource-card h4 {
+            margin-bottom: 8px;
+        }
+
+        .resource-card p {
+            color: var(--muted);
+            font-size: 13px;
+            line-height: 1.5;
+            margin-bottom: 14px;
+        }
+
+        .resource-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* =========================================================
+           FINANCE
+           ========================================================= */
+
+        .balance-card {
+            background: linear-gradient(135deg, #0f172a, #334155);
+            color: white;
+        }
+
+        .balance-card p {
+            color: #cbd5e1;
+            font-size: 13px;
+        }
+
+        .balance-amount {
+            font-size: 35px;
+            font-weight: 800;
+            margin: 10px 0 20px;
+        }
+
+        .transaction {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 13px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .transaction:last-child {
+            border-bottom: none;
+        }
+
+        .transaction-left {
+            display: flex;
+            gap: 11px;
+            align-items: center;
+        }
+
+        .transaction-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 9px;
+            background: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .transaction-left strong {
+            display: block;
+            font-size: 13px;
+        }
+
+        .transaction-left small {
+            color: var(--muted);
+        }
+
+        .expense {
+            color: var(--danger);
+            font-weight: 700;
+        }
+
+        .income {
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        /* =========================================================
+           WELLBEING
+           ========================================================= */
+
+        .mood-options {
+            display: flex;
+            gap: 10px;
+            margin: 18px 0;
+        }
+
+        .mood {
+            flex: 1;
+            border: 1px solid var(--border);
+            background: white;
+            border-radius: 10px;
+            padding: 13px 5px;
+            font-size: 23px;
+        }
+
+        .mood:hover,
+        .mood.selected {
+            border-color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .wellbeing-tip {
+            border-left: 4px solid var(--teal);
+            background: #f0fdfa;
+        }
+
+        .wellbeing-tip h4 {
+            color: #115e59;
+            margin-bottom: 7px;
+        }
+
+        .wellbeing-tip p {
+            color: #134e4a;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        /* =========================================================
+           PROFILE
+           ========================================================= */
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 20px;
+        }
+
+        .profile-large-avatar {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: #dbeafe;
+            color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 800;
+        }
+
+        .profile-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        .detail-box {
+            background: #f8fafc;
+            padding: 14px;
+            border-radius: 10px;
+        }
+
+        .detail-box small {
+            display: block;
+            color: var(--muted);
+            margin-bottom: 5px;
+        }
+
+        .detail-box strong {
+            font-size: 14px;
+        }
+
+        /* =========================================================
+           NOTIFICATION
+           ========================================================= */
+
+        .notification-panel {
+            position: fixed;
+            top: 70px;
+            right: 20px;
+            width: 330px;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 15px 40px rgba(15,23,42,0.15);
+            padding: 15px;
+            z-index: 200;
+            display: none;
+        }
+
+        .notification-panel.show {
+            display: block;
+        }
+
+        .notification-item {
+            padding: 12px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .notification-item:last-child {
+            border-bottom: none;
+        }
+
+        .notification-item strong {
+            display: block;
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .notification-item p {
+            color: var(--muted);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        /* =========================================================
+           MOBILE BOTTOM NAV
+           ========================================================= */
+
+        .mobile-nav {
+            display: none;
+        }
+
+        /* =========================================================
+           MODAL
+           ========================================================= */
+
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(15,23,42,0.55);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 500;
+            padding: 20px;
+        }
+
+        .modal-overlay.show {
+            display: flex;
+        }
+
+        .modal {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 500px;
+            padding: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .close-modal {
+            border: none;
+            background: #f1f5f9;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+        }
+
+        /* =========================================================
+           RESPONSIVE
+           ========================================================= */
+
+        @media (max-width: 1000px) {
+
+            .grid-4 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .map-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 800px) {
+
+            .auth-container {
+                grid-template-columns: 1fr;
+                min-height: auto;
+            }
+
+            .auth-left {
+                display: none;
+            }
+
+            .auth-right {
+                padding: 30px 22px;
+            }
+
+            .sidebar {
+                display: none;
+            }
+
+            .main-content {
+                margin-left: 0;
+                width: 100%;
+                padding-bottom: 75px;
+            }
+
+            .topbar {
+                padding: 0 17px;
+            }
+
+            .page {
+                padding: 18px;
+            }
+
+            .grid-4,
+            .grid-3,
+            .grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .welcome-banner {
+                padding: 21px;
+            }
+
+            .welcome-icon {
+                display: none;
+            }
+
+            .profile-mini span {
+                display: none;
+            }
+
+            .mobile-nav {
+                position: fixed;
+                display: flex;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 65px;
+                background: white;
+                border-top: 1px solid var(--border);
+                z-index: 150;
+                justify-content: space-around;
+                align-items: center;
+            }
+
+            .mobile-nav button {
+                border: none;
+                background: transparent;
+                color: var(--muted);
+                font-size: 10px;
+                display: flex;
+                flex-direction: column;
+                gap: 3px;
+                align-items: center;
+            }
+
+            .mobile-nav button.active {
+                color: var(--primary);
+                font-weight: 700;
+            }
+
+            .mobile-nav span {
+                font-size: 21px;
+            }
+
+            .schedule-item {
+                grid-template-columns: 75px 1fr;
+                gap: 8px;
+            }
+
+            .schedule-room {
+                grid-column: 2;
+            }
+
+            .profile-details {
+                grid-template-columns: 1fr;
+            }
+        }
+
+
+        /* =========================================================
+           FACULTY + CLASSROOM MANAGEMENT (ADDED)
+           ========================================================= */
+        .faculty-only { display: none; }
+        .faculty-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+        .room-card { position:relative; }
+        .room-card h4 { font-size:17px; margin-bottom:6px; }
+        .room-meta { color:var(--muted); font-size:12px; line-height:1.7; }
+        .room-tags { margin-top:10px; display:flex; flex-wrap:wrap; gap:6px; }
+        .room-tag { background:#f1f5f9; padding:5px 8px; border-radius:7px; font-size:11px; }
+        .faculty-action { display:flex; gap:10px; flex-wrap:wrap; margin-top:14px; }
+        .faculty-action .secondary-btn, .faculty-action .primary-btn { width:auto; }
+        .request-row { display:flex; justify-content:space-between; align-items:center; gap:15px; padding:14px 0; border-bottom:1px solid var(--border); }
+        .request-row:last-child { border-bottom:none; }
+        .status-pill { padding:5px 9px; border-radius:20px; font-size:11px; font-weight:700; }
+        .status-pending { background:#fef3c7; color:#92400e; }
+        .status-approved { background:#dcfce7; color:#166534; }
+        .status-declined { background:#fee2e2; color:#991b1b; }
+        .form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+        .check-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:8px; }
+        .check-grid label { font-size:12px; color:var(--muted); display:flex; gap:7px; align-items:center; }
+        @media(max-width:900px){ .faculty-grid{grid-template-columns:1fr 1fr;} }
+        @media(max-width:650px){ .faculty-grid,.form-grid-2{grid-template-columns:1fr;} }
+
+
+        /* SHARED RESOURCE HUB */
+        .resource-hub-head{display:flex;justify-content:space-between;gap:18px;align-items:flex-start;flex-wrap:wrap;margin-bottom:18px;}
+        .resource-hub-tools{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin-bottom:18px;}
+        .resource-hub-tools input,.resource-hub-tools select{width:100%;padding:12px 13px;border:1px solid var(--border);border-radius:10px;outline:none;background:white;}
+        .shared-resource-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+        .shared-resource-card{background:white;border:1px solid var(--border);border-radius:15px;padding:18px;display:flex;flex-direction:column;min-height:230px;}
+        .shared-resource-card h4{font-size:16px;margin:10px 0 7px;}
+        .shared-resource-card p{color:var(--muted);font-size:12px;line-height:1.55;}
+        .resource-meta{display:flex;gap:7px;flex-wrap:wrap;margin:11px 0;}
+        .resource-meta span{background:#f1f5f9;padding:5px 8px;border-radius:7px;font-size:10px;color:#475569;}
+        .resource-card-bottom{margin-top:auto;display:flex;justify-content:space-between;align-items:center;gap:8px;}
+        .resource-actions{display:flex;gap:7px;align-items:center;}
+        .resource-actions button{padding:7px 10px;font-size:11px;width:auto;}
+        .resource-upload{margin-top:22px;}
+        .resource-upload summary{cursor:pointer;font-weight:700;color:var(--primary);}
+        .resource-empty{text-align:center;padding:45px;color:var(--muted);grid-column:1/-1;}
+        @media(max-width:1000px){.shared-resource-grid{grid-template-columns:repeat(2,1fr);}}
+        @media(max-width:650px){.shared-resource-grid,.resource-hub-tools{grid-template-columns:1fr;}.resource-hub-head{display:block;}.resource-hub-head .primary-btn{margin-top:12px;}}
+    </style>
+</head>
+
+<body>
+
+<!-- =============================================================
+     AUTHENTICATION SCREEN
+     ============================================================= -->
+
+<div id="authScreen">
+
+    <div class="auth-container">
+
+        <div class="auth-left">
+
+            <div class="brand-logo">🎓</div>
+
+            <h1>SmartCampus</h1>
+
+            <p>
+                One unified platform for students to manage
+                academics, campus navigation, peers, finances
+                and wellbeing.
+            </p>
+
+            <ul class="feature-list">
+                <li><span>🗺️</span> Find classrooms and campus locations</li>
+                <li><span>📚</span> Manage your academic schedule</li>
+                <li><span>🤝</span> Connect with helpful peers</li>
+                <li><span>💰</span> Track your student finances</li>
+                <li><span>🧠</span> Take care of your wellbeing</li>
+            </ul>
+
+        </div>
+
+
+        <div class="auth-right">
+
+            <h2 id="authTitle">Welcome Back</h2>
+
+            <p class="auth-subtitle" id="authSubtitle">
+                Login to your SmartCampus account
+            </p>
+
+            <div class="auth-tabs">
+
+                <button
+                    class="auth-tab active"
+                    id="loginTab"
+                    onclick="showLogin()">
+                    Login
+                </button>
+
+                <button
+                    class="auth-tab"
+                    id="registerTab"
+                    onclick="showRegister()">
+                    Register
+                </button>
+
+            </div>
+
+
+            <!-- ROLE -->
+
+            <div class="role-switch">
+
+                <button
+                    class="role-btn active"
+                    id="studentRole"
+                    onclick="selectRole('student')">
+                    🎓 Student
+                </button>
+
+                <button
+                    class="role-btn"
+                    id="facultyRole"
+                    onclick="selectRole('faculty')">
+                    👨‍🏫 Faculty
+                </button>
+
+            </div>
+
+
+            <!-- LOGIN FORM -->
+
+            <form id="loginForm" onsubmit="login(event)">
+
+                <div class="form-group">
+
+                    <label>Email / College ID</label>
+
+                    <input
+                        type="text"
+                        id="loginId"
+                        placeholder="Enter your email or college ID"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="loginPassword"
+                        placeholder="Enter password"
+                        required>
+
+                </div>
+
+
+                <button class="primary-btn" type="submit">
+                    Login
+                </button>
+
+            </form>
+
+
+            <!-- REGISTER FORM -->
+
+            <form
+                id="registerForm"
+                onsubmit="registerUser(event)"
+                style="display:none;">
+
+                <div class="form-group">
+
+                    <label>Full Name</label>
+
+                    <input
+                        type="text"
+                        id="regName"
+                        placeholder="Enter your full name"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>College ID</label>
+
+                    <input
+                        type="text"
+                        id="regCollegeId"
+                        placeholder="Example: SUIIT2026001"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Email</label>
+
+                    <input
+                        type="email"
+                        id="regEmail"
+                        placeholder="student@example.com"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Department</label>
+
+                    <select id="regDepartment" required>
+
+                        <option value="">Select Department</option>
+
+                        <option>CSE</option>
+                        <option>ECE</option>
+                        <option>EE</option>
+                        <option>Mechanical</option>
+                        <option>Civil</option>
+                        <option>Other</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Year</label>
+
+                    <select id="regYear" required>
+
+                        <option value="">Select Year</option>
+
+                        <option>1st Year</option>
+                        <option>2nd Year</option>
+                        <option>3rd Year</option>
+                        <option>4th Year</option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>Password</label>
+
+                    <input
+                        type="password"
+                        id="regPassword"
+                        placeholder="Create password"
+                        required>
+
+                </div>
+
+
+                <button class="primary-btn" type="submit">
+                    Create Account
+                </button>
+
+            </form>
+
+
+            <div id="authMessage" class="auth-message"></div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =============================================================
+     MAIN APPLICATION
+     ============================================================= -->
+
+<div id="app">
+
+    <div class="app-layout">
+
+
+        <!-- SIDEBAR -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-brand">
+
+                <div class="sidebar-brand-icon">
+                    🎓
+                </div>
+
+                SmartCampus
+
+            </div>
+
+
+            <ul class="sidebar-menu" id="studentMenu">
+
+                <li>
+                    <button
+                        class="active"
+                        onclick="navigate('home', this)">
+                        <span class="menu-icon">🏠</span>
+                        Home
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('map', this)">
+                        <span class="menu-icon">🗺️</span>
+                        Campus Map
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('academics', this)">
+                        <span class="menu-icon">📚</span>
+                        Academics
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('peers', this)">
+                        <span class="menu-icon">🤝</span>
+                        Peer Guidance
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('resources', this)">
+                        <span class="menu-icon">📚</span>
+                        Resource Hub
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('finance', this)">
+                        <span class="menu-icon">💰</span>
+                        Finance
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('wellbeing', this)">
+                        <span class="menu-icon">🧠</span>
+                        Wellbeing
+                    </button>
+                </li>
+
+                <li>
+                    <button onclick="navigate('profile', this)">
+                        <span class="menu-icon">👤</span>
+                        Profile
+                    </button>
+                </li>
+
+            </ul>
+
+            <ul class="sidebar-menu faculty-only" id="facultyMenu">
+                <li><button class="active" onclick="navigate('facultyHome', this)"><span class="menu-icon">🏠</span>Dashboard</button></li>
+                <li><button onclick="navigate('facultyAcademics', this)"><span class="menu-icon">📅</span>My Timetable</button></li>
+                <li><button onclick="navigate('extraClass', this)"><span class="menu-icon">➕</span>Extra Class</button></li>
+                <li><button onclick="navigate('resources', this)"><span class="menu-icon">📚</span>Resource Hub</button></li>
+                <li><button onclick="navigate('classrooms', this)"><span class="menu-icon">🏫</span>Classrooms</button></li>
+                <li><button onclick="navigate('profile', this)"><span class="menu-icon">👤</span>Profile</button></li>
+            </ul>
+
+
+            <div class="sidebar-bottom">
+
+                <button
+                    class="logout-btn"
+                    onclick="logout()">
+                    🚪 &nbsp; Logout
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- MAIN CONTENT -->
+
+        <main class="main-content">
+
+
+            <!-- TOP BAR -->
+
+            <header class="topbar">
+
+                <div class="page-title">
+
+                    <h2 id="pageTitle">
+                        Dashboard
+                    </h2>
+
+                    <p id="pageSubtitle">
+                        Your campus at a glance
+                    </p>
+
+                </div>
+
+
+                <div class="topbar-right">
+
+                    <button
+                        class="notification-btn"
+                        onclick="toggleNotifications()">
+                        🔔
+                    </button>
+
+
+                    <div class="profile-mini">
+
+                        <div
+                            class="avatar"
+                            id="topAvatar">
+                            U
+                        </div>
+
+                        <span id="topUserName">
+                            Student
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+
+            <!-- NOTIFICATIONS -->
+
+            <div
+                class="notification-panel"
+                id="notificationPanel">
+
+                <div class="notification-item">
+
+                    <strong>📚 Upcoming class</strong>
+
+                    <p>
+                        Engineering Mathematics starts at 11:00 AM.
+                    </p>
+
+                </div>
+
+                <div class="notification-item">
+
+                    <strong>📢 Campus announcement</strong>
+
+                    <p>
+                        E-Summit registration closes soon.
+                    </p>
+
+                </div>
+
+                <div class="notification-item">
+
+                    <strong>🤝 Peer request</strong>
+
+                    <p>
+                        Rahul shared a DSA resource with you.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 HOME
+                 ================================================= -->
+
+            <section
+                class="page active"
+                id="page-home">
+
+                <div class="welcome-banner">
+
+                    <div>
+
+                        <h1>
+                            Good morning, <span id="welcomeName">Student</span> 👋
+                        </h1>
+
+                        <p>
+                            Here's what's happening around your campus today.
+                        </p>
+
+                    </div>
+
+                    <div class="welcome-icon">
+                        🎓
+                    </div>
+
+                </div>
+
+
+                <!-- STATS -->
+
+                <div class="grid grid-4">
+
+                    <div class="card stat-card">
+
+                        <div class="stat-icon blue-bg">
+                            📚
+                        </div>
+
+                        <div>
+
+                            <h3>4</h3>
+
+                            <p>Classes Today</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card stat-card">
+
+                        <div class="stat-icon green-bg">
+                            💰
+                        </div>
+
+                        <div>
+
+                            <h3>₹2,450</h3>
+
+                            <p>Balance</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card stat-card">
+
+                        <div class="stat-icon orange-bg">
+                            🤝
+                        </div>
+
+                        <div>
+
+                            <h3>12</h3>
+
+                            <p>Peer Resources</p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card stat-card">
+
+                        <div class="stat-icon purple-bg">
+                            🧠
+                        </div>
+
+                        <div>
+
+                            <h3>Good</h3>
+
+                            <p>Wellbeing</p>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- NEXT CLASS -->
+
+                <div class="section-header">
+
+                    <h3>Next Class</h3>
+
+                    <button
+                        class="view-all"
+                        onclick="navigateByName('academics')">
+                        View timetable →
+                    </button>
+
+                </div>
+
+
+                <div class="card next-class">
+
+                    <div class="next-class-top">
+
+                        <span class="badge badge-blue">
+                            UPCOMING
+                        </span>
+
+                        <span>
+                            10:00 AM
+                        </span>
+
+                    </div>
+
+                    <div class="class-title">
+                        Engineering Mathematics
+                    </div>
+
+                    <div class="class-info">
+                        📍 Room 204 &nbsp; • &nbsp;
+                        🧑‍🏫 Dr. Sharma
+                    </div>
+
+                </div>
+
+
+                <!-- QUICK ACTIONS -->
+
+                <div class="section-header">
+
+                    <h3>Quick Actions</h3>
+
+                </div>
+
+
+                <div class="quick-actions">
+
+                    <button
+                        class="quick-action"
+                        onclick="navigateByName('map')">
+
+                        <div class="quick-action-icon">
+                            🗺️
+                        </div>
+
+                        <strong>Find Classroom</strong>
+
+                        <small>
+                            Navigate around campus
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="navigateByName('peers')">
+
+                        <div class="quick-action-icon">
+                            🤝
+                        </div>
+
+                        <strong>Find a Peer</strong>
+
+                        <small>
+                            Get academic guidance
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="navigateByName('finance')">
+
+                        <div class="quick-action-icon">
+                            💰
+                        </div>
+
+                        <strong>Check Finance</strong>
+
+                        <small>
+                            View expenses
+                        </small>
+
+                    </button>
+
+
+                    <button
+                        class="quick-action"
+                        onclick="navigateByName('wellbeing')">
+
+                        <div class="quick-action-icon">
+                            🧠
+                        </div>
+
+                        <strong>Wellbeing Check</strong>
+
+                        <small>
+                            Track your mood
+                        </small>
+
+                    </button>
+
+                </div>
+
+
+                <!-- TODAY'S CLASSES -->
+
+                <div class="section-header">
+
+                    <h3>Today's Classes</h3>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="schedule-list">
+
+                        <div class="schedule-item">
+
+                            <div class="schedule-time">
+                                10:00 AM
+                            </div>
+
+                            <div>
+                                <div class="schedule-subject">
+                                    Engineering Mathematics
+                                </div>
+                            </div>
+
+                            <div class="schedule-room">
+                                Room 204
+                            </div>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <div class="schedule-time">
+                                12:00 PM
+                            </div>
+
+                            <div>
+                                <div class="schedule-subject">
+                                    Programming in C
+                                </div>
+                            </div>
+
+                            <div class="schedule-room">
+                                Lab 2
+                            </div>
+
+                        </div>
+
+
+                        <div class="schedule-item">
+
+                            <div class="schedule-time">
+                                2:00 PM
+                            </div>
+
+                            <div>
+                                <div class="schedule-subject">
+                                    Communication English
+                                </div>
+                            </div>
+
+                            <div class="schedule-room">
+                                Room 103
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 CAMPUS MAP
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-map">
+
+                <div class="section-header">
+                    <div>
+                        <h3>Campus Map</h3>
+                        <p style="color:var(--muted);font-size:13px;margin-top:4px;">
+                            Find buildings, classrooms and important locations.
+                        </p>
+                    </div>
+                </div>
+
+
+                <div class="map-layout">
+
+
+                    <div class="card">
+
+                        <div class="map-container">
+
+                            <div class="road horizontal"></div>
+                            <div class="road vertical"></div>
+
+
+                            <div
+                                class="building b1"
+                                onclick="showLocation('Academic Block')">
+                                🏢<br>
+                                Academic Block
+                            </div>
+
+
+                            <div
+                                class="building b2"
+                                onclick="showLocation('Library')">
+                                📚<br>
+                                Central Library
+                            </div>
+
+
+                            <div
+                                class="building b3"
+                                onclick="showLocation('Hostel')">
+                                🏠<br>
+                                Hostel
+                            </div>
+
+
+                            <div
+                                class="building b4"
+                                onclick="showLocation('Canteen')">
+                                🍴<br>
+                                Canteen
+                            </div>
+
+
+                            <div
+                                class="building b5"
+                                onclick="showLocation('Admin Block')">
+                                🏛️<br>
+                                Admin Block
+                            </div>
+
+
+                            <div class="map-pin"></div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3 style="margin-bottom:14px;">
+                            Campus Locations
+                        </h3>
+
+
+                        <div class="location-list">
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Academic Block')">
+
+                                <strong>🏢 Academic Block</strong>
+
+                                <small>
+                                    Classrooms • Labs • Faculty rooms
+                                </small>
+
+                            </div>
+
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Central Library')">
+
+                                <strong>📚 Central Library</strong>
+
+                                <small>
+                                    Books • Reading room • Digital library
+                                </small>
+
+                            </div>
+
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Admin Block')">
+
+                                <strong>🏛️ Admin Block</strong>
+
+                                <small>
+                                    Administration • Accounts • Office
+                                </small>
+
+                            </div>
+
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Hostel')">
+
+                                <strong>🏠 Hostel</strong>
+
+                                <small>
+                                    Student accommodation
+                                </small>
+
+                            </div>
+
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Canteen')">
+
+                                <strong>🍴 Canteen</strong>
+
+                                <small>
+                                    Food • Refreshments
+                                </small>
+
+                            </div>
+
+
+                            <div
+                                class="location-item"
+                                onclick="showLocation('Sports Complex')">
+
+                                <strong>🏟️ Sports Complex</strong>
+
+                                <small>
+                                    Sports • Gym • Activities
+                                </small>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 ACADEMICS
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-academics">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>Academic Schedule</h3>
+
+                        <p style="color:var(--muted);font-size:13px;margin-top:4px;">
+                            Manage your timetable and upcoming classes.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="secondary-btn"
+                        onclick="openAddClassModal()">
+                        + Add Class
+                    </button>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div class="schedule-list" id="fullSchedule">
+
+                        <!-- JS will load schedule -->
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 PEER GUIDANCE
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-peers">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>Peer Guidance</h3>
+
+                        <p style="color:var(--muted);font-size:13px;margin-top:4px;">
+                            Learn from students who have already been there.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        style="width:auto;"
+                        onclick="openPeerModal()">
+                        + Share Resource
+                    </button>
+
+                </div>
+
+
+                <div class="search-box">
+
+                    <span class="search-symbol">
+                        🔍
+                    </span>
+
+                    <input
+                        type="text"
+                        id="peerSearch"
+                        placeholder="Search skills, subjects, resources..."
+                        oninput="searchPeers()">
+
+                </div>
+
+
+                <div
+                    class="grid grid-2"
+                    id="peerGrid">
+
+                    <!-- JS generated -->
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 FINANCE
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-finance">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>Student Finance</h3>
+
+                        <p style="color:var(--muted);font-size:13px;margin-top:4px;">
+                            Keep track of your student expenses.
+                        </p>
+
+                    </div>
+
+                    <button
+                        class="primary-btn"
+                        style="width:auto;"
+                        onclick="openTransactionModal()">
+                        + Add Transaction
+                    </button>
+
+                </div>
+
+
+                <div class="grid grid-3">
+
+
+                    <div class="card balance-card">
+
+                        <p>Available Balance</p>
+
+                        <div class="balance-amount">
+                            ₹2,450
+                        </div>
+
+                        <small>
+                            Updated today
+                        </small>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <p style="color:var(--muted);font-size:13px;">
+                            Monthly Expenses
+                        </p>
+
+                        <h2 style="margin-top:10px;">
+                            ₹3,250
+                        </h2>
+
+                        <p style="color:var(--danger);font-size:12px;margin-top:8px;">
+                            ↓ 8% from last month
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <p style="color:var(--muted);font-size:13px;">
+                            Savings
+                        </p>
+
+                        <h2 style="margin-top:10px;">
+                            ₹1,800
+                        </h2>
+
+                        <p style="color:var(--success);font-size:12px;margin-top:8px;">
+                            ↑ 12% from last month
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="section-header">
+
+                    <h3>Recent Transactions</h3>
+
+                </div>
+
+
+                <div class="card">
+
+                    <div id="transactionList">
+
+                        <!-- JS generated -->
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+                 WELLBEING
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-wellbeing">
+
+                <div class="section-header">
+
+                    <div>
+
+                        <h3>Wellbeing</h3>
+
+                        <p style="color:var(--muted);font-size:13px;margin-top:4px;">
+                            Your mental wellbeing matters.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <div class="grid grid-2">
+
+
+                    <div class="card">
+
+                        <h3>
+                            How are you feeling today?
+                        </h3>
+
+                        <p style="color:var(--muted);font-size:13px;margin-top:5px;">
+                            Select your current mood.
+                        </p>
+
+
+                        <div class="mood-options">
+
+                            <button
+                                class="mood"
+                                onclick="selectMood(this,'Very Good')">
+                                😄
+                            </button>
+
+                            <button
+                                class="mood"
+                                onclick="selectMood(this,'Good')">
+                                🙂
+                            </button>
+
+                            <button
+                                class="mood"
+                                onclick="selectMood(this,'Okay')">
+                                😐
+                            </button>
+
+                            <button
+                                class="mood"
+                                onclick="selectMood(this,'Low')">
+                                😔
+                            </button>
+
+                            <button
+                                class="mood"
+                                onclick="selectMood(this,'Stressed')">
+                                😣
+                            </button>
+
+                        </div>
+
+
+                        <div id="moodMessage"
+                             style="font-size:13px;color:var(--muted);">
+                            Your response is private in this demo.
+                        </div>
+
+                    </div>
+
+
+                    <div class="card wellbeing-tip">
+
+                        <h4>
+                            🌱 Today's Wellbeing Tip
+                        </h4>
+
+                        <p>
+                            Take a short break between study sessions.
+                            A 5–10 minute walk, some water and a few
+                            deep breaths can help you reset your focus.
+                        </p>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>Study Balance</h3>
+
+                        <div style="margin-top:18px;">
+
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span>Study</span>
+                                <strong>72%</strong>
+                            </div>
+
+                            <div style="height:8px;background:#e2e8f0;border-radius:20px;margin-top:7px;">
+                                <div style="width:72%;height:100%;background:#2563eb;border-radius:20px;"></div>
+                            </div>
+
+                        </div>
+
+
+                        <div style="margin-top:18px;">
+
+                            <div style="display:flex;justify-content:space-between;font-size:13px;">
+                                <span>Rest</span>
+                                <strong>58%</strong>
+                            </div>
+
+                            <div style="height:8px;background:#e2e8f0;border-radius:20px;margin-top:7px;">
+                                <div style="width:58%;height:100%;background:#16a34a;border-radius:20px;"></div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="card">
+
+                        <h3>Need Support?</h3>
+
+                        <p style="color:var(--muted);font-size:13px;line-height:1.6;margin:12px 0;">
+                            If you are feeling overwhelmed, reach out to
+                            someone you trust or your college support service.
+                        </p>
+
+                        <button
+                            class="secondary-btn"
+                            onclick="showSupportMessage()">
+                            Find Support
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+
+            <!-- SHARED RESOURCE HUB -->
+            <section class="page" id="page-resources">
+                <div class="resource-hub-head">
+                    <div><h3>📚 Shared Resource Hub</h3><p style="color:var(--muted);font-size:13px;margin-top:4px;">One shared library for students and faculty.</p></div>
+                    <button class="primary-btn" style="width:auto;" onclick="document.getElementById('resourceUpload').open=true;">+ Share Resource</button>
+                </div>
+                <div class="resource-hub-tools">
+                    <input id="resourceSearch" placeholder="Search resources, subjects, authors..." oninput="renderSharedResources()">
+                    <select id="resourceCategory" onchange="renderSharedResources()"><option value="all">All Categories</option><option>Notes</option><option>Assignment</option><option>Lab Manual</option><option>Previous Questions</option><option>Project</option><option>Code</option><option>Reference</option><option>Other</option></select>
+                </div>
+                <div class="card" style="padding:14px;margin-bottom:18px;"><strong>Shared campus library</strong><span style="color:var(--muted);font-size:12px;margin-left:8px;">Students and faculty use the same resource collection.</span></div>
+                <div class="shared-resource-grid" id="sharedResourceGrid"></div>
+                <details class="card resource-upload" id="resourceUpload">
+                    <summary>Upload / Share a new resource</summary>
+                    <form onsubmit="addSharedResource(event)">
+                        <div class="form-grid-2">
+                            <div class="form-group"><label>Resource Title</label><input id="sharedTitle" required placeholder="e.g. Data Structures Unit 3 Notes"></div>
+                            <div class="form-group"><label>Category</label><select id="sharedCategory" required><option>Notes</option><option>Assignment</option><option>Lab Manual</option><option>Previous Questions</option><option>Project</option><option>Code</option><option>Reference</option><option>Other</option></select></div>
+                            <div class="form-group"><label>Subject</label><input id="sharedSubject" required placeholder="e.g. Programming in C"></div>
+                            <div class="form-group"><label>Semester</label><input id="sharedSemester" placeholder="e.g. 1st Semester"></div>
+                            <div class="form-group"><label>Branch</label><input id="sharedBranch" placeholder="e.g. CSE"></div>
+                            <div class="form-group"><label>Resource Link (optional)</label><input id="sharedLink" type="url" placeholder="https://..."></div>
+                        </div>
+                        <div class="form-group"><label>Description</label><textarea id="sharedDescription" rows="3" placeholder="What does this resource contain?"></textarea></div>
+                        <div class="form-group"><label>Share With</label><select id="sharedVisibility"><option value="Everyone">Everyone — Students + Faculty</option><option value="Students">Students</option><option value="Faculty">Faculty</option></select></div>
+                        <button class="primary-btn" style="width:auto;" type="submit">Share Resource</button>
+                    </form>
+                </details>
+            </section>
+
+            <!-- =================================================
+                 FACULTY DASHBOARD (ADDED)
+                 ================================================= -->
+            <section class="page" id="page-facultyHome">
+                <div class="welcome-banner">
+                    <div>
+                        <h1>Good morning, <span id="facultyWelcomeName">Faculty</span> 👋</h1>
+                        <p>Manage classes, rooms and extra-class requests.</p>
+                    </div>
+                    <div class="welcome-icon">👨‍🏫</div>
+                </div>
+
+                <div class="faculty-grid">
+                    <div class="card stat-card"><div class="stat-icon blue-bg">📚</div><div><h3>4</h3><p>Today's Classes</p></div></div>
+                    <div class="card stat-card"><div class="stat-icon orange-bg">➕</div><div><h3>2</h3><p>Extra Class Requests</p></div></div>
+                    <div class="card stat-card"><div class="stat-icon green-bg">🏫</div><div><h3>18</h3><p>Rooms Available</p></div></div>
+                </div>
+
+                <div class="section-header"><h3>Today's Schedule</h3><button class="view-all" onclick="navigateByName('facultyAcademics')">View timetable →</button></div>
+                <div class="card"><div class="schedule-list">
+                    <div class="schedule-item"><div class="schedule-time">10:00 AM</div><div><div class="schedule-subject">Engineering Mathematics</div></div><div class="schedule-room">Room 204</div></div>
+                    <div class="schedule-item"><div class="schedule-time">12:00 PM</div><div><div class="schedule-subject">Programming in C</div></div><div class="schedule-room">Lab 2</div></div>
+                    <div class="schedule-item"><div class="schedule-time">2:00 PM</div><div><div class="schedule-subject">Free Period</div></div><div class="schedule-room">—</div></div>
+                </div></div>
+
+                <div class="section-header"><h3>Room Requests</h3></div>
+                <div class="card">
+                    <div class="request-row"><div><strong>Dr. Mehta</strong><p style="color:var(--muted);font-size:12px;margin-top:4px;">Room 204 • Extra class • Tomorrow 3 PM</p></div><div><span class="status-pill status-pending">Pending</span></div></div>
+                    <div class="faculty-action"><button class="primary-btn" onclick="handleRoomRequest('accepted')">Accept</button><button class="secondary-btn" onclick="handleRoomRequest('declined')">Decline</button></div>
+                </div>
+            </section>
+
+            <!-- FACULTY TIMETABLE -->
+            <section class="page" id="page-facultyAcademics">
+                <div class="section-header"><div><h3>My Timetable</h3><p style="color:var(--muted);font-size:13px;margin-top:4px;">Your teaching schedule.</p></div><button class="secondary-btn" onclick="navigateByName('extraClass')">+ Extra Class</button></div>
+                <div class="card"><div class="schedule-list">
+                    <div class="schedule-item"><div class="schedule-time">10:00 AM</div><div><div class="schedule-subject">Engineering Mathematics</div></div><div class="schedule-room">Room 204</div></div>
+                    <div class="schedule-item"><div class="schedule-time">12:00 PM</div><div><div class="schedule-subject">Programming in C</div></div><div class="schedule-room">Lab 2</div></div>
+                    <div class="schedule-item"><div class="schedule-time">3:00 PM</div><div><div class="schedule-subject">Tutorial</div></div><div class="schedule-room">Room 103</div></div>
+                </div></div>
+            </section>
+
+            <!-- EXTRA CLASS -->
+            <section class="page" id="page-extraClass">
+                <div class="section-header"><div><h3>Request Extra Class</h3><p style="color:var(--muted);font-size:13px;margin-top:4px;">SmartCampus will suggest a suitable room and time.</p></div></div>
+                <div class="card">
+                    <form onsubmit="submitExtraClass(event)">
+                        <div class="form-grid-2">
+                            <div class="form-group"><label>Subject</label><input id="extraSubject" required placeholder="e.g. Engineering Mathematics"></div>
+                            <div class="form-group"><label>Students</label><input id="extraStudents" type="number" min="1" required placeholder="60"></div>
+                            <div class="form-group"><label>Preferred Date</label><input id="extraDate" type="date" required></div>
+                            <div class="form-group"><label>Preferred Time</label><input id="extraTime" type="time" required></div>
+                        </div>
+                        <div class="form-group"><label>Preferred Room (optional)</label><input id="extraRoom" placeholder="e.g. Room 204"></div>
+                        <button class="primary-btn" style="width:auto;" type="submit">Find & Request Room</button>
+                    </form>
+                    <div id="extraClassResult" style="margin-top:15px;"></div>
+                </div>
+            </section>
+
+            <!-- CLASSROOM MANAGEMENT -->
+            <section class="page" id="page-classrooms">
+                <div class="section-header"><div><h3>Classroom Details</h3><p style="color:var(--muted);font-size:13px;margin-top:4px;">Add capacity, equipment and room availability.</p></div><button class="primary-btn" style="width:auto;" onclick="openClassroomModal()">+ Add Classroom</button></div>
+                <div class="grid grid-2" id="classroomGrid"></div>
+            </section>
+
+            <!-- =================================================
+                 PROFILE
+                 ================================================= -->
+
+            <section
+                class="page"
+                id="page-profile">
+
+                <div class="card">
+
+                    <div class="profile-header">
+
+                        <div
+                            class="profile-large-avatar"
+                            id="profileAvatar">
+                            U
+                        </div>
+
+                        <div>
+
+                            <h2 id="profileName">
+                                Student
+                            </h2>
+
+                            <p
+                                id="profileRole"
+                                style="color:var(--muted);margin-top:5px;">
+                                Student
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="profile-details">
+
+                        <div class="detail-box">
+
+                            <small>College ID</small>
+
+                            <strong id="profileCollegeId">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <small>Email</small>
+
+                            <strong id="profileEmail">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <small>Department</small>
+
+                            <strong id="profileDepartment">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="detail-box">
+
+                            <small>Year</small>
+
+                            <strong id="profileYear">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+        </main>
+
+    </div>
+
+
+    <!-- MOBILE NAV -->
+
+    <nav class="mobile-nav">
+
+        <button
+            class="active"
+            onclick="navigateByName('home')">
+            <span>🏠</span>
+            Home
+        </button>
+
+        <button onclick="navigateByName('map')">
+            <span>🗺️</span>
+            Map
+        </button>
+
+        <button onclick="navigateByName('academics')">
+            <span>📚</span>
+            Study
+        </button>
+
+        <button onclick="navigateByName('peers')">
+            <span>🤝</span>
+            Peers
+        </button>
+
+        <button onclick="navigateByName('finance')">
+            <span>💰</span>
+            Money
+        </button>
+
+    </nav>
+
+</div>
+
+
+<!-- =============================================================
+     MODALS
+     ============================================================= -->
+
+<!-- LOCATION MODAL -->
+
+<div
+    class="modal-overlay"
+    id="locationModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3 id="locationTitle">
+                Location
+            </h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('locationModal')">
+                ✕
+            </button>
+
+        </div>
+
+        <p
+            id="locationDescription"
+            style="color:var(--muted);line-height:1.6;">
+        </p>
+
+        <button
+            class="primary-btn"
+            style="margin-top:20px;"
+            onclick="closeModal('locationModal')">
+            Got it
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ADD CLASS MODAL -->
+
+<div
+    class="modal-overlay"
+    id="classModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>Add Class</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('classModal')">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form onsubmit="addClass(event)">
+
+            <div class="form-group">
+
+                <label>Subject</label>
+
+                <input
+                    id="newSubject"
+                    required
+                    placeholder="Example: Data Structures">
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Time</label>
+
+                <input
+                    id="newTime"
+                    type="time"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Room</label>
+
+                <input
+                    id="newRoom"
+                    placeholder="Example: Room 301"
+                    required>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                type="submit">
+                Add Class
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- PEER MODAL -->
+
+<div
+    class="modal-overlay"
+    id="peerModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>Share Resource</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('peerModal')">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form onsubmit="addResource(event)">
+
+            <div class="form-group">
+
+                <label>Resource Title</label>
+
+                <input
+                    id="resourceTitle"
+                    placeholder="Example: C Programming Notes"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <textarea
+                    id="resourceDescription"
+                    rows="3"
+                    placeholder="Describe your resource..."
+                    required></textarea>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Category</label>
+
+                <input
+                    id="resourceCategory"
+                    placeholder="Example: Programming"
+                    required>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                type="submit">
+                Share Resource
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<!-- TRANSACTION MODAL -->
+
+<div
+    class="modal-overlay"
+    id="transactionModal">
+
+    <div class="modal">
+
+        <div class="modal-header">
+
+            <h3>Add Transaction</h3>
+
+            <button
+                class="close-modal"
+                onclick="closeModal('transactionModal')">
+                ✕
+            </button>
+
+        </div>
+
+
+        <form onsubmit="addTransaction(event)">
+
+            <div class="form-group">
+
+                <label>Description</label>
+
+                <input
+                    id="transactionDescription"
+                    placeholder="Example: Canteen"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Amount</label>
+
+                <input
+                    id="transactionAmount"
+                    type="number"
+                    min="1"
+                    placeholder="Enter amount"
+                    required>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>Type</label>
+
+                <select id="transactionType">
+
+                    <option value="expense">
+                        Expense
+                    </option>
+
+                    <option value="income">
+                        Income
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <button
+                class="primary-btn"
+                type="submit">
+                Add Transaction
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+
+<script>
+
+    /* ============================================================
+       SMARTCAMPUS JAVASCRIPT
+       Everything is inside this index.html.
+       ============================================================ */
+
+
+    /* ------------------------------------------------------------
+       GLOBAL DATA
+       ------------------------------------------------------------ */
+
+    let currentRole = "student";
+
+    let currentUser = null;
+
+
+    let schedule = [
+
+        {
+            subject: "Engineering Mathematics",
+            time: "10:00 AM",
+            room: "Room 204"
+        },
+
+        {
+            subject: "Programming in C",
+            time: "12:00 PM",
+            room: "Lab 2"
+        },
+
+        {
+            subject: "Communication English",
+            time: "2:00 PM",
+            room: "Room 103"
+        },
+
+        {
+            subject: "Engineering Physics",
+            time: "3:30 PM",
+            room: "Room 205"
+        }
+
+    ];
+
+
+    let peers = [
+
+        {
+            name: "Rahul Kumar",
+            branch: "CSE • 3rd Year",
+            skills: ["DSA", "C++", "Competitive Programming"],
+            avatar: "RK"
+        },
+
+        {
+            name: "Priya Sharma",
+            branch: "CSE • 4th Year",
+            skills: ["Web Development", "React", "Projects"],
+            avatar: "PS"
+        },
+
+        {
+            name: "Aditya Singh",
+            branch: "ECE • 3rd Year",
+            skills: ["Embedded", "Arduino", "IoT"],
+            avatar: "AS"
+        },
+
+        {
+            name: "Sneha Das",
+            branch: "CSE • 2nd Year",
+            skills: ["Python", "Machine Learning", "AI"],
+            avatar: "SD"
+        }
+
+    ];
+
+
+    let resources = [
+
+        {
+            title: "C Programming Notes",
+            description: "Complete beginner-friendly notes covering C fundamentals.",
+            category: "Programming",
+            author: "Rahul"
+        },
+
+        {
+            title: "Engineering Mathematics Formula Sheet",
+            description: "Useful formulas for first-year engineering mathematics.",
+            category: "Mathematics",
+            author: "Sneha"
+        },
+
+        {
+            title: "Hackathon Preparation Guide",
+            description: "A collection of tips for preparing and presenting a hackathon project.",
+            category: "Hackathon",
+            author: "Priya"
+        },
+
+        {
+            title: "Arduino Beginner Resources",
+            description: "Useful resources for getting started with Arduino and IoT.",
+            category: "Hardware",
+            author: "Aditya"
+        }
+
+    ];
+
+
+    let transactions = [
+
+        {
+            title: "Canteen",
+            date: "Today",
+            amount: 120,
+            type: "expense"
+        },
+
+        {
+            title: "Pocket Money",
+            date: "Yesterday",
+            amount: 2000,
+            type: "income"
+        },
+
+        {
+            title: "Stationery",
+            date: "2 days ago",
+            amount: 250,
+            type: "expense"
+        },
+
+        {
+            title: "Bus Fare",
+            date: "3 days ago",
+            amount: 80,
+            type: "expense"
+        }
+
+    ];
+
+
+
+
+    /* ------------------------------------------------------------
+       FACULTY / CLASSROOM DATA (ADDED)
+       ------------------------------------------------------------ */
+    let classrooms = [
+        {name:"Room 204", building:"Academic Block", floor:"2nd Floor", capacity:60, type:"Classroom", status:"Available", equipment:["Projector","Smart Board","AC","Wi-Fi"], details:"Accessible seating and standard classroom setup."},
+        {name:"Lab 2", building:"Academic Block", floor:"1st Floor", capacity:40, type:"Laboratory", status:"Available", equipment:["Computers","Projector","AC","Wi-Fi"], details:"40 computer stations with network access."},
+        {name:"Seminar Hall", building:"Admin Block", floor:"Ground Floor", capacity:120, type:"Seminar Hall", status:"Available", equipment:["Projector","Audio System","AC","Wi-Fi"], details:"Suitable for seminars, workshops and events."}
+    ];
+
+    /* ------------------------------------------------------------
+       SHARED RESOURCE HUB
+       ------------------------------------------------------------ */
+    const defaultSharedResources = [
+        {id:1,title:"C Programming Notes",category:"Notes",subject:"Programming in C",semester:"1st Semester",branch:"CSE",description:"Beginner-friendly C programming notes and examples.",author:"Rahul",role:"Student",visibility:"Everyone",link:""},
+        {id:2,title:"Engineering Mathematics Formula Sheet",category:"Reference",subject:"Engineering Mathematics",semester:"1st Semester",branch:"CSE",description:"Useful formulas for first-year engineering mathematics.",author:"Sneha",role:"Student",visibility:"Everyone",link:""},
+        {id:3,title:"Programming Lab Manual",category:"Lab Manual",subject:"Programming in C",semester:"1st Semester",branch:"CSE",description:"Lab exercises and practice problems for programming classes.",author:"Dr. Sharma",role:"Faculty",visibility:"Students",link:""},
+        {id:4,title:"Hackathon Preparation Guide",category:"Project",subject:"Innovation",semester:"All",branch:"All",description:"Tips for problem selection, prototyping and pitching a hackathon project.",author:"Priya",role:"Student",visibility:"Everyone",link:""}
+    ];
+    let sharedResources = JSON.parse(localStorage.getItem("smartCampusSharedResources") || "null") || defaultSharedResources;
+    function saveSharedResources(){localStorage.setItem("smartCampusSharedResources",JSON.stringify(sharedResources));}
+    function resourceCanBeSeen(r){const role=currentUser?.role==="faculty"?"Faculty":"Student";return r.visibility==="Everyone"||r.visibility===role;}
+    function escapeResourceText(v){return String(v??"").replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[ch]));}
+    function renderSharedResources(){
+        const grid=document.getElementById("sharedResourceGrid"); if(!grid)return;
+        const search=(document.getElementById("resourceSearch")?.value||"").toLowerCase().trim();
+        const category=document.getElementById("resourceCategory")?.value||"all";
+        const list=sharedResources.filter(r=>resourceCanBeSeen(r)&& (category==="all"||r.category===category) && (!search||[r.title,r.subject,r.author,r.branch,r.category,r.description].join(" ").toLowerCase().includes(search)));
+        if(!list.length){grid.innerHTML='<div class="resource-empty">📭 No matching resources found.</div>';return;}
+        grid.innerHTML=list.map(r=>`<article class="shared-resource-card"><div><span class="badge badge-green">${escapeResourceText(r.category)}</span></div><h4>${escapeResourceText(r.title)}</h4><p>${escapeResourceText(r.description||"No description provided.")}</p><div class="resource-meta"><span>📘 ${escapeResourceText(r.subject)}</span><span>🎓 ${escapeResourceText(r.semester||"All")}</span><span>👥 ${escapeResourceText(r.branch||"All")}</span><span>👤 ${escapeResourceText(r.author)} · ${escapeResourceText(r.role)}</span></div><div class="resource-card-bottom"><small style="color:var(--muted);">Shared with ${escapeResourceText(r.visibility)}</small><div class="resource-actions"><button class="secondary-btn" onclick="openSharedResource('${r.id}')">${r.link?"Open":"View"}</button>${(currentUser?.role==="faculty"||r.author===currentUser?.name)?`<button class="secondary-btn" onclick="deleteSharedResource('${r.id}')">Delete</button>`:""}</div></div></article>`).join("");
+    }
+    function openSharedResource(id){const r=sharedResources.find(x=>String(x.id)===String(id));if(!r)return;if(r.link)window.open(r.link,"_blank","noopener,noreferrer");else alert(`${r.title}\n\nSubject: ${r.subject}\nCategory: ${r.category}\nShared by: ${r.author}\n\n${r.description||"No description provided."}`);}
+    function deleteSharedResource(id){const r=sharedResources.find(x=>String(x.id)===String(id));if(!r)return;if(!(currentUser?.role==="faculty"||r.author===currentUser?.name))return;if(!confirm(`Delete "${r.title}"?`))return;sharedResources=sharedResources.filter(x=>String(x.id)!==String(id));saveSharedResources();renderSharedResources();}
+    function addSharedResource(event){event.preventDefault();const role=currentUser?.role==="faculty"?"Faculty":"Student";sharedResources.unshift({id:Date.now(),title:document.getElementById("sharedTitle").value.trim(),category:document.getElementById("sharedCategory").value,subject:document.getElementById("sharedSubject").value.trim(),semester:document.getElementById("sharedSemester").value.trim()||"All",branch:document.getElementById("sharedBranch").value.trim()||"All",description:document.getElementById("sharedDescription").value.trim(),author:currentUser?.name||"SmartCampus User",role,visibility:document.getElementById("sharedVisibility").value,link:document.getElementById("sharedLink").value.trim()});saveSharedResources();event.target.reset();document.getElementById("resourceUpload").open=false;renderSharedResources();alert("Resource shared successfully.");}
+
+    /* ------------------------------------------------------------
+       AUTHENTICATION
+       ------------------------------------------------------------ */
+
+    function showLogin() {
+
+        document.getElementById("loginForm").style.display = "block";
+
+        document.getElementById("registerForm").style.display = "none";
+
+        document.getElementById("loginTab").classList.add("active");
+
+        document.getElementById("registerTab").classList.remove("active");
+
+        document.getElementById("authTitle").textContent =
+            "Welcome Back";
+
+        document.getElementById("authSubtitle").textContent =
+            "Login to your SmartCampus account";
+
+        clearAuthMessage();
+
+    }
+
+
+    function showRegister() {
+
+        document.getElementById("loginForm").style.display = "none";
+
+        document.getElementById("registerForm").style.display = "block";
+
+        document.getElementById("loginTab").classList.remove("active");
+
+        document.getElementById("registerTab").classList.add("active");
+
+        document.getElementById("authTitle").textContent =
+            "Create Account";
+
+        document.getElementById("authSubtitle").textContent =
+            "Register for SmartCampus";
+
+        clearAuthMessage();
+
+    }
+
+
+    function selectRole(role) {
+
+        currentRole = role;
+
+        document
+            .getElementById("studentRole")
+            .classList.toggle("active", role === "student");
+
+        document
+            .getElementById("facultyRole")
+            .classList.toggle("active", role === "faculty");
+
+    }
+
+
+    function registerUser(event) {
+
+        event.preventDefault();
+
+
+        const user = {
+
+            name: document.getElementById("regName").value,
+
+            collegeId: document.getElementById("regCollegeId").value,
+
+            email: document.getElementById("regEmail").value,
+
+            department: document.getElementById("regDepartment").value,
+
+            year: document.getElementById("regYear").value,
+
+            password: document.getElementById("regPassword").value,
+
+            role: currentRole
+
+        };
+
+
+        localStorage.setItem(
+            "smartCampusUser",
+            JSON.stringify(user)
+        );
+
+
+        showMessage(
+            "Registration successful! You can now login.",
+            "success"
+        );
+
+
+        document.getElementById("registerForm").reset();
+
+        setTimeout(showLogin, 1000);
+
+    }
+
+
+    function login(event) {
+
+        event.preventDefault();
+
+
+        const loginId =
+            document.getElementById("loginId").value.trim();
+
+
+        const password =
+            document.getElementById("loginPassword").value;
+
+
+        const storedUser =
+            JSON.parse(
+                localStorage.getItem("smartCampusUser")
+            );
+
+
+        /* Demo login */
+
+        if (storedUser) {
+
+            if (
+                (loginId === storedUser.email ||
+                 loginId === storedUser.collegeId)
+                &&
+                password === storedUser.password
+            ) {
+
+                currentUser = storedUser;
+
+                openApplication();
+
+                return;
+
+            }
+
+        }
+
+
+        /* Demo account */
+
+        if (
+            (loginId === "student" ||
+             loginId === "student@suiit.ac.in")
+            &&
+            password === "1234"
+        ) {
+
+            currentUser = {
+
+                name: "Demo Student",
+
+                collegeId: "SUIIT2026001",
+
+                email: "student@suiit.ac.in",
+
+                department: "CSE",
+
+                year: "1st Year",
+
+                role: "student"
+
+            };
+
+
+            openApplication();
+
+            return;
+
+        }
+
+
+
+        if ((loginId === "faculty" || loginId === "faculty@suiit.ac.in") && password === "1234") {
+            currentUser = {
+                name: "Dr. Sharma", collegeId: "FAC2026001", email: "faculty@suiit.ac.in",
+                department: "CSE", year: "Faculty", role: "faculty"
+            };
+            openApplication();
+            return;
+        }
+
+        showMessage(
+            "Invalid login details. Try demo login: student / 1234 or faculty / 1234",
+            "error"
+        );
+
+    }
+
+
+    function openApplication() {
+
+        document.getElementById("authScreen").style.display = "none";
+
+        document.getElementById("app").style.display = "block";
+
+
+        updateUserInterface();
+
+        renderSchedule();
+
+        renderPeers();
+
+        renderTransactions();
+
+    }
+
+
+    function logout() {
+
+        currentUser = null;
+
+        document.getElementById("app").style.display = "none";
+
+        document.getElementById("authScreen").style.display = "flex";
+
+        document.getElementById("loginForm").reset();
+
+        showLogin();
+
+    }
+
+
+    function showMessage(message, type) {
+
+        const box =
+            document.getElementById("authMessage");
+
+        box.textContent = message;
+
+        box.className =
+            "auth-message " + type;
+
+    }
+
+
+    function clearAuthMessage() {
+
+        const box =
+            document.getElementById("authMessage");
+
+        box.textContent = "";
+
+        box.className = "auth-message";
+
+    }
+
+
+    /* ------------------------------------------------------------
+       USER INTERFACE
+       ------------------------------------------------------------ */
+
+    function updateUserInterface() {
+
+        if (!currentUser) return;
+
+
+        const name =
+            currentUser.name || "Student";
+
+
+        const initials =
+            name
+                .split(" ")
+                .map(word => word[0])
+                .join("")
+                .substring(0,2)
+                .toUpperCase();
+
+
+        document.getElementById("welcomeName").textContent =
+            name.split(" ")[0];
+
+
+        document.getElementById("topUserName").textContent =
+            name;
+
+
+        document.getElementById("topAvatar").textContent =
+            initials;
+
+
+        document.getElementById("profileAvatar").textContent =
+            initials;
+
+
+        document.getElementById("profileName").textContent =
+            name;
+
+
+        document.getElementById("profileRole").textContent =
+            currentUser.role === "faculty"
+                ? "Faculty"
+                : "Student";
+
+
+        document.getElementById("profileCollegeId").textContent =
+            currentUser.collegeId || "—";
+
+
+        document.getElementById("profileEmail").textContent =
+            currentUser.email || "—";
+
+
+        document.getElementById("profileDepartment").textContent =
+            currentUser.department || "—";
+
+
+        document.getElementById("profileYear").textContent =
+            currentUser.year || "—";
+
+        const isFaculty = currentUser.role === "faculty";
+        document.getElementById("studentMenu").style.display = isFaculty ? "none" : "block";
+        document.getElementById("facultyMenu").style.display = isFaculty ? "block" : "none";
+        const facultyName = document.getElementById("facultyWelcomeName");
+        if (facultyName) facultyName.textContent = name.split(" ")[0];
+
+        navigate(isFaculty ? "facultyHome" : "home");
+        if (isFaculty) renderClassrooms();
+
+    }
+
+
+    /* ------------------------------------------------------------
+       NAVIGATION
+       ------------------------------------------------------------ */
+
+    const pageNames = {
+
+        home: {
+            title: "Dashboard",
+            subtitle: "Your campus at a glance"
+        },
+
+        map: {
+            title: "Campus Map",
+            subtitle: "Find your way around campus"
+        },
+
+        academics: {
+            title: "Academics",
+            subtitle: "Your timetable and classes"
+        },
+
+        peers: {
+            title: "Peer Guidance",
+            subtitle: "Learn and connect with peers"
+        },
+
+        finance: {
+            title: "Finance",
+            subtitle: "Manage your student finances"
+        },
+
+        wellbeing: {
+            title: "Wellbeing",
+            subtitle: "Take care of yourself"
+        },
+
+        profile: {
+            title: "Profile",
+            subtitle: "Your SmartCampus profile"
+        },
+        resources: { title: "Shared Resource Hub", subtitle: "Shared study material for students and faculty" },
+        facultyHome: { title: "Faculty Dashboard", subtitle: "Manage your campus teaching activities" },
+        facultyAcademics: { title: "My Timetable", subtitle: "Your teaching schedule" },
+        extraClass: { title: "Extra Class Request", subtitle: "Find a suitable time and room" },
+        classrooms: { title: "Classroom Details", subtitle: "Manage rooms, capacity and equipment" }
+
+    };
+
+
+    function navigate(pageName, clickedButton) {
+
+        document
+            .querySelectorAll(".page")
+            .forEach(page => {
+                page.classList.remove("active");
+            });
+
+
+        const page =
+            document.getElementById("page-" + pageName);
+
+
+        if (page) {
+            page.classList.add("active");
+        }
+
+        if (pageName === "resources") renderSharedResources();
+
+
+        document
+            .querySelectorAll(".sidebar-menu button")
+            .forEach(button => {
+                button.classList.remove("active");
+            });
+
+
+        if (clickedButton) {
+
+            clickedButton.classList.add("active");
+
+        } else {
+
+            const matchingButton =
+                [...document.querySelectorAll(".sidebar-menu button")]
+                .find(button =>
+                    button.textContent
+                        .toLowerCase()
+                        .includes(
+                            pageName === "map"
+                                ? "campus map"
+                                : pageName
+                        )
+                );
+
+
+            if (matchingButton) {
+                matchingButton.classList.add("active");
+            }
+
+        }
+
+
+        if (pageNames[pageName]) {
+
+            document.getElementById("pageTitle").textContent =
+                pageNames[pageName].title;
+
+            document.getElementById("pageSubtitle").textContent =
+                pageNames[pageName].subtitle;
+
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    function navigateByName(pageName) {
+
+        navigate(pageName);
+
+    }
+
+
+    /* ------------------------------------------------------------
+       SCHEDULE
+       ------------------------------------------------------------ */
+
+    function renderSchedule() {
+
+        const container =
+            document.getElementById("fullSchedule");
+
+
+        if (!container) return;
+
+
+        container.innerHTML = "";
+
+
+        schedule.forEach((item, index) => {
+
+            const div =
+                document.createElement("div");
+
+
+            div.className = "schedule-item";
+
+
+            div.innerHTML = `
+
+                <div class="schedule-time">
+                    ${item.time}
+                </div>
+
+                <div>
+                    <div class="schedule-subject">
+                        ${item.subject}
+                    </div>
+                </div>
+
+                <div class="schedule-room">
+                    📍 ${item.room}
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    function openAddClassModal() {
+
+        document
+            .getElementById("classModal")
+            .classList.add("show");
+
+    }
+
+
+    function addClass(event) {
+
+        event.preventDefault();
+
+
+        const subject =
+            document.getElementById("newSubject").value;
+
+
+        const timeValue =
+            document.getElementById("newTime").value;
+
+
+        const room =
+            document.getElementById("newRoom").value;
+
+
+        const formattedTime =
+            formatTime(timeValue);
+
+
+        schedule.push({
+
+            subject: subject,
+
+            time: formattedTime,
+
+            room: room
+
+        });
+
+
+        renderSchedule();
+
+
+        closeModal("classModal");
+
+
+        event.target.reset();
+
+
+        alert("Class added successfully!");
+
+    }
+
+
+    function formatTime(time) {
+
+        if (!time) return "";
+
+
+        const [hours, minutes] =
+            time.split(":");
+
+
+        let h = parseInt(hours);
+
+        const ampm =
+            h >= 12 ? "PM" : "AM";
+
+
+        h =
+            h % 12 || 12;
+
+
+        return `${h}:${minutes} ${ampm}`;
+
+    }
+
+
+    /* ------------------------------------------------------------
+       PEERS
+       ------------------------------------------------------------ */
+
+    function renderPeers(searchTerm = "") {
+
+        const container =
+            document.getElementById("peerGrid");
+
+
+        if (!container) return;
+
+
+        container.innerHTML = "";
+
+
+        const filtered =
+            peers.filter(peer => {
+
+                const text =
+                    (
+                        peer.name +
+                        " " +
+                        peer.branch +
+                        " " +
+                        peer.skills.join(" ")
+                    ).toLowerCase();
+
+
+                return text.includes(
+                    searchTerm.toLowerCase()
+                );
+
+            });
+
+
+        filtered.forEach(peer => {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className = "card";
+
+
+            card.innerHTML = `
+
+                <div class="peer-card">
+
+                    <div class="peer-avatar">
+                        ${peer.avatar}
+                    </div>
+
+                    <div class="peer-info">
+
+                        <h4>
+                            ${peer.name}
+                        </h4>
+
+                        <p>
+                            ${peer.branch}
+                        </p>
+
+                        ${peer.skills.map(skill =>
+                            `<span class="tag">${skill}</span>`
+                        ).join("")}
+
+                    </div>
+
+                    <button
+                        class="connect-btn"
+                        onclick="connectPeer('${peer.name}')">
+
+                        Connect
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
+
+
+        renderResources(container);
+
+    }
+
+
+    function renderResources(container) {
+
+        resources.forEach(resource => {
+
+            const card =
+                document.createElement("div");
+
+
+            card.className =
+                "card resource-card";
+
+
+            card.innerHTML = `
+
+                <span class="badge badge-green">
+                    ${resource.category}
+                </span>
+
+                <h4 style="margin-top:12px;">
+                    ${resource.title}
+                </h4>
+
+                <p>
+                    ${resource.description}
+                </p>
+
+                <div class="resource-footer">
+
+                    <small style="color:var(--muted);">
+                        Shared by ${resource.author}
+                    </small>
+
+                    <button
+                        class="secondary-btn"
+                        style="padding:7px 10px;font-size:11px;"
+                        onclick="downloadResource('${resource.title}')">
+
+                        View
+
+                    </button>
+
+                </div>
+
+            `;
+
+
+            container.appendChild(card);
+
+        });
+
+    }
+
+
+    function searchPeers() {
+
+        const value =
+            document.getElementById("peerSearch").value;
+
+
+        renderPeers(value);
+
+    }
+
+
+    function connectPeer(name) {
+
+        alert(
+            "Connection request sent to " +
+            name +
+            "!"
+        );
+
+    }
+
+
+    function openPeerModal() {
+
+        document
+            .getElementById("peerModal")
+            .classList.add("show");
+
+    }
+
+
+    function addResource(event) {
+
+        event.preventDefault();
+
+
+        const title =
+            document.getElementById("resourceTitle").value;
+
+
+        const description =
+            document.getElementById("resourceDescription").value;
+
+
+        const category =
+            document.getElementById("resourceCategory").value;
+
+
+        const author =
+            currentUser
+                ? currentUser.name
+                : "You";
+
+
+        resources.unshift({
+
+            title,
+            description,
+            category,
+            author
+
+        });
+
+
+        renderPeers();
+
+
+        closeModal("peerModal");
+
+
+        event.target.reset();
+
+
+        alert("Resource shared successfully!");
+
+    }
+
+
+    function downloadResource(title) {
+
+        alert(
+            "Resource preview opened:\n\n" +
+            title +
+            "\n\nBackend file storage will be connected later."
+        );
+
+    }
+
+
+    /* ------------------------------------------------------------
+       FINANCE
+       ------------------------------------------------------------ */
+
+    function renderTransactions() {
+
+        const container =
+            document.getElementById("transactionList");
+
+
+        if (!container) return;
+
+
+        container.innerHTML = "";
+
+
+        transactions.forEach(transaction => {
+
+            const div =
+                document.createElement("div");
+
+
+            div.className = "transaction";
+
+
+            div.innerHTML = `
+
+                <div class="transaction-left">
+
+                    <div class="transaction-icon">
+                        ${transaction.type === "income" ? "💵" : "🛒"}
+                    </div>
+
+                    <div>
+
+                        <strong>
+                            ${transaction.title}
+                        </strong>
+
+                        <small>
+                            ${transaction.date}
+                        </small>
+
+                    </div>
+
+                </div>
+
+
+                <div class="${transaction.type === "income" ? "income" : "expense"}">
+
+                    ${transaction.type === "income" ? "+" : "-"}
+                    ₹${transaction.amount}
+
+                </div>
+
+            `;
+
+
+            container.appendChild(div);
+
+        });
+
+    }
+
+
+    function openTransactionModal() {
+
+        document
+            .getElementById("transactionModal")
+            .classList.add("show");
+
+    }
+
+
+    function addTransaction(event) {
+
+        event.preventDefault();
+
+
+        const description =
+            document.getElementById(
+                "transactionDescription"
+            ).value;
+
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "transactionAmount"
+                ).value
+            );
+
+
+        const type =
+            document.getElementById(
+                "transactionType"
+            ).value;
+
+
+        transactions.unshift({
+
+            title: description,
+
+            date: "Just now",
+
+            amount: amount,
+
+            type: type
+
+        });
+
+
+        renderTransactions();
+
+
+        closeModal("transactionModal");
+
+
+        event.target.reset();
+
+
+        alert("Transaction added!");
+
+    }
+
+
+    /* ------------------------------------------------------------
+       WELLBEING
+       ------------------------------------------------------------ */
+
+    function selectMood(button, mood) {
+
+        document
+            .querySelectorAll(".mood")
+            .forEach(item => {
+                item.classList.remove("selected");
+            });
+
+
+        button.classList.add("selected");
+
+
+        document.getElementById(
+            "moodMessage"
+        ).textContent =
+            "Mood recorded: " +
+            mood +
+            ". Take care of yourself today.";
+
+    }
+
+
+    function showSupportMessage() {
+
+        alert(
+            "Support services will be connected to your college's official counselling/support system through the backend."
+        );
+
+    }
+
+
+    /* ------------------------------------------------------------
+       CAMPUS MAP
+       ------------------------------------------------------------ */
+
+    function showLocation(location) {
+
+        const descriptions = {
+
+            "Academic Block":
+                "The Academic Block contains classrooms, laboratories and faculty rooms.",
+
+            "Central Library":
+                "The Central Library provides books, reading spaces and digital learning resources.",
+
+            "Admin Block":
+                "The Admin Block handles administration, student records and accounts.",
+
+            "Hostel":
+                "Student accommodation and hostel facilities.",
+
+            "Canteen":
+                "Campus food and refreshment area.",
+
+            "Sports Complex":
+                "Sports facilities, gym and student activities."
+
+        };
+
+
+        document.getElementById(
+            "locationTitle"
+        ).textContent = location;
+
+
+        document.getElementById(
+            "locationDescription"
+        ).textContent =
+            descriptions[location] ||
+            "Campus location information.";
+
+        document
+            .getElementById("locationModal")
+            .classList.add("show");
+
+    }
+
+
+
+
+    /* ------------------------------------------------------------
+       FACULTY / CLASSROOM FUNCTIONS (ADDED)
+       ------------------------------------------------------------ */
+    function renderClassrooms() {
+        const grid = document.getElementById("classroomGrid");
+        if (!grid) return;
+        grid.innerHTML = classrooms.map((room, i) => `
+            <div class="card room-card">
+                <div style="display:flex;justify-content:space-between;gap:10px;align-items:start;">
+                    <div><h4>${room.name}</h4><div class="room-meta">${room.building} • ${room.floor}<br>${room.type} • Capacity: ${room.capacity}</div></div>
+                    <span class="status-pill ${room.status === 'Available' ? 'status-approved' : room.status === 'Maintenance' ? 'status-declined' : 'status-pending'}">${room.status}</span>
+                </div>
+                <div class="room-tags">${room.equipment.map(x => `<span class="room-tag">${x}</span>`).join('')}</div>
+                <p style="color:var(--muted);font-size:12px;margin-top:12px;">${room.details || 'No extra details.'}</p>
+            </div>`).join('');
+    }
+
+    function openClassroomModal() {
+        document.getElementById("classroomModal").classList.add("show");
+    }
+
+    function saveClassroom(event) {
+        event.preventDefault();
+        const equipment = [...document.querySelectorAll('#classroomModal input[type="checkbox"]:checked')].map(x => x.value);
+        classrooms.unshift({
+            name: document.getElementById("roomName").value,
+            building: document.getElementById("roomBuilding").value,
+            floor: document.getElementById("roomFloor").value || "—",
+            capacity: Number(document.getElementById("roomCapacity").value),
+            type: document.getElementById("roomType").value,
+            status: document.getElementById("roomStatus").value,
+            equipment,
+            details: document.getElementById("roomDetails").value
+        });
+        renderClassrooms();
+        closeModal("classroomModal");
+        event.target.reset();
+        alert("Classroom details saved successfully!");
+    }
+
+    function submitExtraClass(event) {
+        event.preventDefault();
+        const subject = document.getElementById("extraSubject").value;
+        const students = Number(document.getElementById("extraStudents").value);
+        const date = document.getElementById("extraDate").value;
+        const time = formatTime(document.getElementById("extraTime").value);
+        const preferred = document.getElementById("extraRoom").value.trim();
+        const available = classrooms.find(r => r.status === "Available" && r.capacity >= students && (!preferred || r.name.toLowerCase() === preferred.toLowerCase()));
+        const result = document.getElementById("extraClassResult");
+        if (available) {
+            result.innerHTML = `<div class="card" style="background:#f0fdf4;border-color:#bbf7d0;"><strong>Suggested: ${available.name}</strong><p style="color:var(--muted);font-size:12px;margin-top:5px;">${date} • ${time} • Capacity ${available.capacity}</p><span class="status-pill status-pending">Permission request submitted</span></div>`;
+        } else {
+            const alt = classrooms.find(r => r.status === "Available" && r.capacity >= students);
+            result.innerHTML = `<div class="card" style="background:#fffbeb;border-color:#fde68a;"><strong>Preferred room is unavailable.</strong><p style="color:var(--muted);font-size:12px;margin-top:5px;">${alt ? `Suggested alternative: ${alt.name}` : 'No suitable room found for this capacity.'}</p></div>`;
+        }
+    }
+
+    function handleRoomRequest(status) {
+        alert(status === "accepted" ? "Room request accepted. Timetable can now be updated." : "Room request declined. An alternative room/time can be suggested.");
+    }
+
+    /* ------------------------------------------------------------
+       MODALS
+       ------------------------------------------------------------ */
+
+    function closeModal(id) {
+
+        document
+            .getElementById(id)
+            .classList.remove("show");
+
+    }
+
+
+    /* ------------------------------------------------------------
+       NOTIFICATIONS
+       ------------------------------------------------------------ */
+
+    function toggleNotifications() {
+
+        document
+            .getElementById("notificationPanel")
+            .classList.toggle("show");
+
+    }
+
+
+    /* ------------------------------------------------------------
+       CLOSE NOTIFICATION WHEN CLICKING ELSEWHERE
+       ------------------------------------------------------------ */
+
+    document.addEventListener("click", function(event) {
+
+        const panel =
+            document.getElementById("notificationPanel");
+
+
+        const button =
+            document.querySelector(".notification-btn");
+
+
+        if (
+            panel &&
+            !panel.contains(event.target) &&
+            button &&
+            !button.contains(event.target)
+        ) {
+
+            panel.classList.remove("show");
+
+        }
+
+    });
+
+
+    /* ------------------------------------------------------------
+       CLOSE MODAL BY CLICKING OUTSIDE
+       ------------------------------------------------------------ */
+
+    document.querySelectorAll(".modal-overlay")
+        .forEach(overlay => {
+
+            overlay.addEventListener(
+                "click",
+                function(event) {
+
+                    if (event.target === overlay) {
+
+                        overlay.classList.remove("show");
+
+                    }
+
+                }
+            );
+
+        });
+
+
+    /* ------------------------------------------------------------
+       INITIALIZATION
+       ------------------------------------------------------------ */
+
+    window.addEventListener("load", function() {
+
+        renderSchedule();
+
+        renderPeers();
+
+        renderTransactions();
+        renderClassrooms();
+        renderSharedResources();
+
+    });
+
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
